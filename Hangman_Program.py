@@ -43,24 +43,27 @@ def Hangman_game():
     Number_attempts=6
     while Number_attempts>0 and secret_word != show_word:
         Number_attempts-=1
-        player_input=str(input("Choose letter: "))
+        player_input=input("Choose letter: ")
         letter=player_input.upper()
-        if letter in letter_list:
-            print ("You already used this letter, try another one")
-            Number_attempts+=1
+        if letter not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            print ('Input must be a letter')
         else:
-            if letter in secret_word:
-                show_list=list(show_word)
-                for i in range(len(secret_word)):
-                    if secret_word[i]==letter:
-                        show_list[i]=letter
-                        show_word="".join(show_list)
-                print("Hidden word:",show_word)
-                letter_list.append(letter)
+            if letter in letter_list:
+                print ("You already used this letter, try another one")
                 Number_attempts+=1
             else:
-                print("Oops, wrong,","Harry is hanging by",Hangman_parts[Number_attempts],".", Number_attempts, "attempts left")
-                letter_list.append(letter)
+                if letter in secret_word:
+                    show_list=list(show_word)
+                    for i in range(len(secret_word)):
+                        if secret_word[i]==letter:
+                            show_list[i]=letter
+                            show_word="".join(show_list)
+                    print("Hidden word:",show_word)
+                    letter_list.append(letter)
+                    Number_attempts+=1
+                else:
+                    print("Oops, wrong,","Harry is hanging by",Hangman_parts[Number_attempts],".", Number_attempts, "attempts left")
+                    letter_list.append(letter)
     else:
         if show_word==secret_word:
             print(secret_word)
